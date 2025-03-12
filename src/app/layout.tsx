@@ -28,14 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} flex flex-row h-screen`}>
-        <Sidebar />
-        <div className={`flex flex-col w-full`}>
-          <Header />
-          <div>
+      <body className={`${geistSans.variable} ${geistMono.variable} flex flex-col h-screen`}>
+        <Header />
+        <div className={`flex flex-row h-screen w-full`}>
+          <Sidebar />
+          <div className={`flex flex-col w-full`}>
             {children}
+            <Footer />
           </div>
-          <Footer />
         </div>
       </body>
     </html>
