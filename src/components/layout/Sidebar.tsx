@@ -32,7 +32,7 @@ export default function Sidebar() {
       </a>
       <a className={`flex flex-row items-center gap-2 cursor-pointer`}>
         <FaShareAltSquare className={`w-8 h-8`} />
-        {isExpanded && <p>Social Media</p>}
+        {isExpanded && <p>Socials</p>}
       </a>
       <a className={`flex flex-row items-center gap-2 cursor-pointer`}>
         <FaGear className={`w-8 h-8`} />
