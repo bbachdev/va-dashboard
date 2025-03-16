@@ -1,9 +1,9 @@
 'use client'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
@@ -41,6 +41,8 @@ export default function SignUp() {
     console.log(data);
   }
 
+  const tosWatch = form.watch("acceptToS")
+
   return (
     <div className={`mx-auto flex flex-col items-center`}>
       <Card className={`w-96 mt-8`}>
@@ -75,7 +77,7 @@ export default function SignUp() {
                   <FormControl>
                     <Input type="password" {...field} />
                   </FormControl>
-                  <FormDescription>
+                  <div className={`text-muted-foreground text-sm`}>
                     <span className={`font-bold`}>Passwords must: </span>
                     <ul className={`mt-1 text-xs list-disc list-inside`}>
                       <li>Be at least 12 characters long</li>
@@ -83,7 +85,8 @@ export default function SignUp() {
                       <li>Contain at least one number</li>
                       <li>Contain at least one special character</li>
                     </ul>
-                  </FormDescription>
+                  </div>
+                  
                   <FormMessage />
                 </FormItem>
               )}/>
@@ -96,26 +99,28 @@ export default function SignUp() {
                   <FormMessage />
                 </FormItem>
               )}/>
-              <FormField control={form.control} name="acceptToS" render={() => (
-                <FormItem className={`flex flex-row items-center`}>
-                  <FormControl>
-                    <Checkbox />
-                  </FormControl>
-                  <p className={`text-sm`}>I accept the <a href="#" className={`text-cyan-950 underline`}>Terms of Service</a></p>
+              <FormField control={form.control} name="acceptToS" render={({field}) => (
+                <FormItem className={`flex flex-col`}>
+                  <div className={`mr-auto flex flex-row items-center gap-2`}>
+                    <FormControl>
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                    </FormControl>
+                    <p className={`text-sm`}>I accept the <a href="#" className={`text-cyan-950 underline`}>Terms of Service</a></p>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}/>
+              <div className={`mt-4 flex flex-col`}>
+                <Button className={`w-full bg-cyan-950 text-white disabled:bg-cyan-950/40`} type='submit' disabled={tosWatch === false}>Sign Up</Button>
+                <div className={`flex flex-col items-center text-sm mt-4`}>
+                  <p>Already have an account?</p>
+                  <Link href="/signin" className={`text-sm underline`}>Sign In</Link>
+                </div>
+                
+              </div>
             </form>
           </Form>
         </CardContent>
-        <CardFooter className={`flex flex-col`}>
-          <Button className={`w-full bg-cyan-950 text-white`} type='submit'>Sign Up</Button>
-          <div className={`flex flex-col items-center text-sm mt-4`}>
-            <p>Already have an account?</p>
-            <Link href="/signin" className={`text-sm underline`}>Sign In</Link>
-          </div>
-          
-        </CardFooter>
       </Card>
       
     </div>
