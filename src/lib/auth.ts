@@ -9,5 +9,8 @@ export const auth = betterAuth({
     database: {
       dialect,
       type: "postgres"
+    },
+    emailAndPassword: {  
+      enabled: true
     }
 })
