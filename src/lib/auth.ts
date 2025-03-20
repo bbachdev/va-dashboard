@@ -15,10 +15,10 @@ export const auth = betterAuth({
     },
     emailAndPassword: {  
       enabled: true,
-      requireEmailVerification: true
+      requireEmailVerification: false
     },
     emailVerification: {
-      sendOnSignUp: true,
+      sendOnSignUp: false,
       // TODO: Remove this once email solution in place
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       sendVerificationEmail: async ({ user, url, token }, request) => {

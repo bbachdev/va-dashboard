@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { authClient } from "@/lib/auth-client";
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const signUpSchema = z.object({
   email: z.string().email(),
@@ -37,8 +39,20 @@ export default function SignUp() {
     },
   })
 
-  function handleSubmit(data: z.infer<typeof signUpSchema>) {
-    console.log(data);
+  async function handleSubmit(data: z.infer<typeof signUpSchema>) {
+    console.log("data", data);
+
+    const authResult = await authClient.signUp.email({
+      email: data.email,
+      password: data.password,
+      name: data.displayName,
+    });
+
+    if (authResult.error) {
+      console.log(authResult.error);
+    }else{
+      console.log(authResult.data);
+    }
   }
 
   const tosWatch = form.watch("acceptToS")
@@ -111,7 +125,9 @@ export default function SignUp() {
                 </FormItem>
               )}/>
               <div className={`mt-4 flex flex-col`}>
-                <Button className={`w-full bg-cyan-950 text-white disabled:bg-cyan-950/40`} type='submit' disabled={tosWatch === false}>Sign Up</Button>
+                <Button className={`w-full bg-cyan-950 text-white disabled:bg-cyan-950/40`} type='submit' disabled={tosWatch === false}>
+                  { form.formState.isSubmitting && <ClipLoader className={`h-4 w-4 animate-spin`} color={`#fff`} /> || `Sign Up`}
+                </Button>
                 <div className={`flex flex-col items-center text-sm mt-4`}>
                   <p>Already have an account?</p>
                   <Link href="/signin" className={`text-sm underline`}>Sign In</Link>

@@ -8,13 +8,13 @@ export default function Header() {
   const { data: session, isPending } = authClient.useSession();
 
   return (
-    <header className={`py-4 px-4 flex flex-row items-center bg-cyan-800 text-white`}>
+    <header className={`h-18 py-4 px-4 flex flex-row items-center bg-cyan-800 text-white`}>
       <Link href={(session) ? '/dashboard' : '/'}><h1>Header</h1></Link>
       <div className={`ml-auto flex flex-row items-center`}>
 
         { !isPending && session && (
             <Avatar className={`bg-white text-black w-10 h-10`}>
-              <AvatarFallback>BB</AvatarFallback>
+              { session && session.user && <AvatarFallback>{session.user.name.split(" ")[0][0] + (session.user.name.split(" ").length > 1 ? session.user.name.split(" ")[1][0] : "")}</AvatarFallback>}
             </Avatar>
         )}
         
