@@ -30,7 +30,7 @@ export default function SignIn() {
 
   return (
     <div>
-      <Card className={`mt-8 w-1/5 mx-auto`}>
+      <Card className={`mt-8 w-1/3 xl:w-1/5 mx-auto`}>
         <CardTitle className={`text-center text-3xl`}>Sign In</CardTitle>
         <CardContent>
           <Form {...form}>
